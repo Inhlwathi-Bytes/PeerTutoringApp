@@ -13,6 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Headers;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +30,31 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogin;
     private TextView textViewRegisterStudent, textViewRegisterTutor;
     private DatabaseHelper dbHelper;
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://199.168.4.240:7147/") // use your local IP and .NET port (e.g., 7147)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    AuthApi authApi = retrofit.create(AuthApi.class);
+
+    public class LoginRequest {
+        private String email;
+        private String password;
+
+        public LoginRequest(String email, String password) {
+            this.email = email;
+            this.password = password;
+        }
+
+        // Getters and setters if needed (Retrofit uses them internally)
+    }
+
+    public interface AuthApi {
+        @Headers("Content-Type: application/json")
+        @POST("api/auth/login") // or just "login" depending on your controller route prefix
+        Call<Void> loginUser(@Body LoginRequest loginRequest);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,39 +76,31 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
-            int selectedRoleId = radioGroupRole.getCheckedRadioButtonId();
 
-            // Validate input
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(LoginActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Check if Student or Tutor is selected
-            if (selectedRoleId == -1) {
-                Toast.makeText(LoginActivity.this, "Please select a role", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            LoginRequest request = new LoginRequest(email, password);
 
-            if (selectedRoleId == R.id.radioStudent) {
-                // Login as Student
-                if (validateStudentLogin(email, password)) {
-                    Intent intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Invalid email or password for Student", Toast.LENGTH_SHORT).show();
+            Call<Void> call = authApi.loginUser(request);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                        // Navigate to home screen if needed
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Login failed: " + response.code(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } else if (selectedRoleId == R.id.radioTutor) {
-                // Login as Tutor
-                if (validateTutorLogin(email, password)) {
-                    Intent intent = new Intent(LoginActivity.this, TutorDashboardActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(LoginActivity.this, "Invalid email or password for Tutor", Toast.LENGTH_SHORT).show();
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }
+            });
         });
 
         // "Register As A Student" click
