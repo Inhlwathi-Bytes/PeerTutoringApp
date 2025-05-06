@@ -89,8 +89,55 @@ public class RegisterAsTutor extends BaseActivity {
 
     private void setupListeners() {
         // ViewFlipper navigation
-        btnNext1.setOnClickListener(v -> viewFlipper.showNext());
-        btnNext2.setOnClickListener(v -> viewFlipper.showNext());
+        btnNext1.setOnClickListener(v -> {
+            String bio = editTextBio.getText().toString().trim();
+            String qualification = editTextQualifications.getText().toString().trim();
+            String achievement = editTextAchievements.getText().toString().trim();
+
+            if(qualification.length() == 0) {
+                editTextQualifications.setError("Qualification field empty");
+                editTextQualifications.requestFocus();
+            } else if (achievement.length() == 0){
+                editTextAchievements.setError("Achievement field empty");
+                editTextAchievements.requestFocus();
+            }
+            else if (bio.length() < 40) {
+                editTextBio.setError("Bio must be at least 40 characters");
+                editTextBio.requestFocus();
+            } else {
+                viewFlipper.showNext();
+            }
+        });
+
+        btnNext2.setOnClickListener(v -> {
+            int childCount = languageCheckboxGroup.getChildCount();
+            boolean languageSelected = false;
+            String yearsOfexperience = editTextYearsOfExperience.getText().toString().trim();
+
+
+            for (int i = 0; i < childCount; i++) {
+                View child = languageCheckboxGroup.getChildAt(i);
+                if (child instanceof CheckBox) {
+                    CheckBox checkBox = (CheckBox) child;
+                    if (checkBox.isChecked()) {
+                        languageSelected = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!languageSelected) {
+                Toast.makeText(this, "Please select at least one language", Toast.LENGTH_SHORT).show();
+            }
+            else if(yearsOfexperience.length() == 0){
+                editTextYearsOfExperience.setError("Years of Experience field empty");
+                editTextYearsOfExperience.requestFocus();
+            }else {
+                viewFlipper.showNext();
+            }
+        });
+
+//        btnNext2.setOnClickListener(v -> viewFlipper.showNext());
         btnBack1.setOnClickListener(v -> viewFlipper.showPrevious());
         btnBack2.setOnClickListener(v -> viewFlipper.showPrevious());
 

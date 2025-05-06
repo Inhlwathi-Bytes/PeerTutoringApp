@@ -25,12 +25,20 @@
                     android:id="@+id/editTextBio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Bio" />
+                    android:hint="Bio"
+                    android:inputType="textMultiLine"
+                    android:minLines="4"
+                    android:padding="12dp"
+                   />
+
+                <!--                    android:gravity="top|start"-->
 
                 <EditText
                     android:id="@+id/editTextQualifications"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
                     android:hint="Qualifications" />
 
                 <EditText
@@ -81,18 +89,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:weightSum="2">
                 <Button
                     android:id="@+id/btnNext2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Next" />
 
                 <Button
                     android:id="@+id/btnBack1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="Back" />
+            </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
@@ -105,35 +123,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:gravity="center_horizontal">
 
+                <!-- Round Profile Photo -->
                 <ImageView
                     android:id="@+id/imageViewProfilePhoto"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_profile_placeholder"
                     android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:background="@drawable/circle_background"
+                    android:padding="4dp" />
 
+                <!-- Upload Photo Button -->
                 <Button
                     android:id="@+id/btnUploadPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload Profile Photo" />
+                    android:text="Choose Profile Photo"
+                    android:layout_marginBottom="32dp" />
 
-                <Button
-                    android:id="@+id/btnSubmit"
-                    android:layout_width="wrap_content"
+                <!-- Submit and Back buttons side by side -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Submit" />
-
-                <Button
-                    android:id="@+id/btnBack2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Back" />
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:weightSum="2">
+                    <Button
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Submit" />
+                    <Button
+                        android:id="@+id/btnBack2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Back" />
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
+
 
     </ViewFlipper>
 </LinearLayout>
