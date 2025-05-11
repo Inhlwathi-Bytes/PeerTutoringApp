@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_tutor_dashboard"
+        android:title="Tutor Dashboard" />
+
+    <item
+        android:id="@+id/nav_tutor_profile"
+        android:title="Tutor Profile" />
+
+    <item
+        android:id="@+id/nav_requests"
+        android:title="Subscription Requests" />
+
+    <item
+        android:id="@+id/nav_subjects"
+        android:title="Subjects" />
+
+    <item
+        android:id="@+id/nav_students"
+        android:title="My Students" />
+
+    <item
+        android:id="@+id/nav_mode_switch"
+        android:title="Switch to Student Mode" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
+
+</menu>

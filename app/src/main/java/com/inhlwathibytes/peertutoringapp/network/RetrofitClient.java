@@ -9,7 +9,7 @@ public class RetrofitClient {
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://199.168.4.240:7147/") // Replace with your actual IP and port
+                    .baseUrl("http://192.168.0.173:7147/") // Replace with your actual IP and port
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

@@ -6,15 +6,14 @@ import android.view.View;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TutorDashboardActivity extends AppCompatActivity {
+public class TutorDashboardActivity extends BaseActivity {
 
     CardView studentRequestCard, appointmentsCard, scheduleCard, myStudentsCard, chatCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tutor_dashboard);
-
+        setupDrawer(R.layout.activity_tutor_dashboard);
         studentRequestCard = findViewById(R.id.cardStudentRequest);
         appointmentsCard = findViewById(R.id.cardAppointments);
         scheduleCard = findViewById(R.id.cardSchedule);

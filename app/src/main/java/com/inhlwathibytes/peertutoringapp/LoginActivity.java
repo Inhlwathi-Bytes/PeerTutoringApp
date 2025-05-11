@@ -38,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     private RadioButton radioStudent, radioTutor;
     private Button buttonLogin;
     private TextView textViewRegisterStudent, textViewRegisterTutor;
-
+//199.168.4.240
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://199.168.4.240:7147/") // use your local IP and .NET port (e.g., 7147)
+            .baseUrl("http://192.168.0.173:7147/") // use your local IP and .NET port (e.g., 7147)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
                         // Go to dashboard
-                        startActivity(new Intent(LoginActivity.this, StudentDashboardActivity.class));
+                        startActivity(new Intent(LoginActivity.this, SplashActivity.class));
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, "Failed: " + response.code(), Toast.LENGTH_SHORT).show();

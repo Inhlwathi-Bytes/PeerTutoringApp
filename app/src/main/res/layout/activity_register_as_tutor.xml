@@ -9,6 +9,41 @@
         android:id="@+id/viewFlipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Become a Tutor on Our Platform"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Share your knowledge and help others succeed while building your own reputation and experience. Register now to start tutoring students in subjects you love!"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginBottom="32dp" />
+
+                <Button
+                    android:id="@+id/btnStartRegistration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Registration" />
+            </LinearLayout>
+        </ScrollView>
 
         <!-- Page 1: Basic Info -->
         <ScrollView
