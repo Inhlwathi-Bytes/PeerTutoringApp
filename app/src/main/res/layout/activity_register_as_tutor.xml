@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -56,31 +57,71 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <TextView
+                    android:id="@+id/textViewStudentRegisterTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Register As Tutor"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    />
+
                 <EditText
                     android:id="@+id/editTextBio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Bio"
                     android:inputType="textMultiLine"
-                    android:minLines="4"
-                    android:padding="12dp"
-                   />
+                    android:minLines="3"
+                     />
 
                 <!--                    android:gravity="top|start"-->
-
                 <EditText
-                    android:id="@+id/editTextQualifications"
+                    android:id="@+id/editTextAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Age"
+                    android:inputType="number"
+                    android:minLines="2" />
+
+                <EditText
+                    android:id="@+id/editTextHighestAchievement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Highest Educational Achievement"
                     android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:hint="Qualifications" />
+                    android:minLines="2" />
+
 
                 <EditText
-                    android:id="@+id/editTextAchievements"
+                    android:id="@+id/editTextStreet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Achievements" />
+                    android:hint="Location(Street)"
+                    android:minLines="2" />
+
+                <EditText
+                    android:id="@+id/editTextCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="City"
+                    android:minLines="2" />
+
+                <EditText
+                    android:id="@+id/editTextProvince"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Province"
+                    android:minLines="2" />
+
+                <EditText
+                    android:id="@+id/editTextPostalCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Postal Code"
+                    android:inputType="number"
+                    android:minLines="2" />
 
                 <CheckBox
                     android:id="@+id/checkBoxIsAvailable"
@@ -124,7 +165,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
-            <LinearLayout
+                <!-- inside your existing ConstraintLayout -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/languageChipGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:singleLine="false"
+                    app:chipSpacing="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <Button
+                    android:id="@+id/selectLanguagesButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Languages"
+                    app:layout_constraintTop_toBottomOf="@id/languageChipGroup"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

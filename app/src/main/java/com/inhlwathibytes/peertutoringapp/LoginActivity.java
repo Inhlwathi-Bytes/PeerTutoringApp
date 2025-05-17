@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.annotations.SerializedName;
+import com.inhlwathibytes.peertutoringapp.network.RetrofitClient;
 
 import org.json.JSONObject;
 
@@ -38,13 +39,14 @@ public class LoginActivity extends AppCompatActivity {
     private RadioButton radioStudent, radioTutor;
     private Button buttonLogin;
     private TextView textViewRegisterStudent, textViewRegisterTutor;
-//199.168.4.240
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.0.173:7147/") // use your local IP and .NET port (e.g., 7147)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
-    AuthApi authApi = retrofit.create(AuthApi.class);
+//199.168.4.240
+//    Retrofit retrofit = new Retrofit.Builder()
+//            .baseUrl("http://192.168.0.173:7147/") // use your local IP and .NET port (e.g., 7147)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build();
+
+    AuthApi authApi = RetrofitClient.getRetrofitInstance().create(AuthApi.class);
 
     public class LoginRequest {
         private String email;

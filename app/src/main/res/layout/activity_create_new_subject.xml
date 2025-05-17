@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNewSubject"
+    android:padding="16dp">
+
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navControls"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Step 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create A New Subject"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/subjectName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:hint="Subject Name" />
+
+            <EditText
+                android:id="@+id/availability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Availability Times" />
+
+            <EditText
+                android:id="@+id/deliveryMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mode of Delivery" />
+
+            <!-- inside your existing ConstraintLayout -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/languageChipGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:singleLine="false"
+                app:chipSpacing="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <Button
+                android:id="@+id/selectLanguagesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Languages"
+                app:layout_constraintTop_toBottomOf="@id/languageChipGroup"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </LinearLayout>
+
+        <!-- Step 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:hint="Level (e.g., Beginner)" />
+
+
+            <EditText
+                android:id="@+id/outline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Outline"
+                android:minLines="3"
+                android:gravity="top"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/hourlyRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hourly Rate in Rands"
+                android:minLines="2"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <!-- Step 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Optional Media"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/selectCoverImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Cover Image" />
+
+            <Button
+                android:id="@+id/selectIntroVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose Intro Video" />
+        </LinearLayout>
+    </ViewFlipper>
+
+    <!-- Navigation Controls -->
+    <LinearLayout
+        android:id="@+id/navControls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Back" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Next" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Submit"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

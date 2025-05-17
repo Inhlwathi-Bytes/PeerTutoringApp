@@ -83,12 +83,14 @@ public class BaseActivity extends AppCompatActivity {
             } else if (id == R.id.nav_student_dashboard) {
                 targetActivity = StudentDashboardActivity.class;
             } else if (id == R.id.nav_tutor_profile) {
-                // targetActivity = TutorProfileActivity.class;
+                targetActivity = TutorProfile.class;
             } else if (id == R.id.nav_subjects) {
-                // targetActivity = ManageSubjectsActivity.class;
+                targetActivity = MyOfferedSubjects.class;
             } else if (id == R.id.nav_students) {
                 // targetActivity = ManageStudentsActivity.class;
             } else if (id == R.id.nav_mode_switch) {
+                // startActivity(new Intent(this, ModeChangeActivity.class));
+            }else if (id == R.id.nav_mode_switch) {
                 // startActivity(new Intent(this, ModeChangeActivity.class));
             }
 

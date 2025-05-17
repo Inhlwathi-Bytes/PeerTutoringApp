@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CreateNewSubject"
+            android:exported="false" />
+        <activity
+            android:name=".MyOfferedSubjects"
+            android:exported="false" />
+        <activity
+            android:name=".TutorProfile"
+            android:exported="false" />
+        <activity
             android:name=".RegisterAsTutor"
             android:exported="false" />
         <activity

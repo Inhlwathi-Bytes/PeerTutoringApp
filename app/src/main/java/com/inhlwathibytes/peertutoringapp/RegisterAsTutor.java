@@ -12,14 +12,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.SearchView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,8 +48,11 @@ import android.widget.ViewFlipper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.inhlwathibytes.peertutoringapp.models.Language;
 import com.inhlwathibytes.peertutoringapp.models.RegisterTutorRequest;
 import com.inhlwathibytes.peertutoringapp.network.RetrofitClient;
 import com.inhlwathibytes.peertutoringapp.network.TutorshipApi;
@@ -67,16 +69,20 @@ public class RegisterAsTutor extends BaseActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private ViewFlipper viewFlipper;
-    private EditText editTextBio, editTextQualifications, editTextAchievements;
+    private EditText editTextBio, editTextHighestAchievement, editTextPostalCode, editTextProvince, editTextCity, editTextStreet, editTextAge;
     private CheckBox checkBoxIsAvailable;
     private EditText editTextYearsOfExperience;
     private LinearLayout languageCheckboxGroup;
     private ImageView imageViewProfilePhoto;
     private Uri selectedImageUri;
     private Bitmap selectedImageBitmap;
+    private ChipGroup chipGroup;
+    private Button selectLanguagesButton;
 
 
     private Button btnStartRegistration, btnNext1, btnNext2, btnBack1, btnBack2, btnSubmit, btnUploadPhoto;
+
+    List<Integer> selectedLanguageIds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +93,103 @@ public class RegisterAsTutor extends BaseActivity {
         loadLanguages(); // simulate loading checkboxes
     }
 
+    private static final List<Language> ALL_LANGUAGES = Arrays.asList(
+            new Language(1, "English"),   new Language(2, "Zulu"),
+            new Language(3, "Afrikaans"), new Language(4, "Spanish"),
+            new Language(5, "French"),    new Language(6, "Mandarin"),
+            new Language(7, "Hindi"),     new Language(8, "Arabic"),
+            new Language(9, "Portuguese"),new Language(10, "Bengali"),
+            new Language(11, "Russian"),  new Language(12, "Japanese"),
+            new Language(13, "German"),   new Language(14, "Swahili"),
+            new Language(15, "Urdu"),     new Language(16, "Turkish"),
+            new Language(17, "Korean"),   new Language(18, "Italian"),
+            new Language(19, "Vietnamese"),new Language(20, "Persian")
+    );
+
+    private void showLanguageMultiSelectDialog() {
+        // inflate custom view
+        View dialogView = getLayoutInflater()
+                .inflate(R.layout.dialog_multiselect_languages, null);
+
+        SearchView searchView = dialogView.findViewById(R.id.searchView);
+        ListView listView = dialogView.findViewById(R.id.languageListView);
+
+        // adapter of language names
+        ArrayAdapter<Language> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_multiple_choice,
+                new ArrayList<>(ALL_LANGUAGES)
+        );
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setAdapter(adapter);
+
+        // restore any previous checks
+        boolean[] checked = new boolean[ALL_LANGUAGES.size()];
+        for (int i = 0; i < ALL_LANGUAGES.size(); i++) {
+            if (selectedLanguageIds.contains(ALL_LANGUAGES.get(i).getId())) {
+                checked[i] = true;
+            }
+        }
+        for (int i = 0; i < checked.length; i++) {
+            listView.setItemChecked(i, checked[i]);
+        }
+
+        // filter as user types
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override public boolean onQueryTextSubmit(String s) { return false; }
+            @Override public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Select Languages")
+                .setView(dialogView)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    // read checked items
+                    selectedLanguageIds.clear();
+                    chipGroup.removeAllViews();
+                    for (int i = 0; i < listView.getCount(); i++) {
+                        if (listView.isItemChecked(i)) {
+                            Language lang = adapter.getItem(i);
+                            selectedLanguageIds.add(lang.getId());
+                            addChip(lang);
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void addChip(Language lang) {
+        Chip chip = new Chip(this);
+        chip.setText(lang.getName());
+        chip.setCloseIconVisible(true);
+        chip.setOnCloseIconClickListener(c -> {
+            chipGroup.removeView(chip);
+            selectedLanguageIds.remove(Integer.valueOf(lang.getId()));
+        });
+        chipGroup.addView(chip);
+    }
+
     private void initializeViews() {
         viewFlipper = findViewById(R.id.viewFlipper);
         editTextBio = findViewById(R.id.editTextBio);
-        editTextQualifications = findViewById(R.id.editTextQualifications);
-        editTextAchievements = findViewById(R.id.editTextAchievements);
+        editTextHighestAchievement = findViewById(R.id.editTextHighestAchievement);
+        editTextCity = findViewById(R.id.editTextCity);
+        editTextStreet = findViewById(R.id.editTextStreet);
+        editTextPostalCode = findViewById(R.id.editTextPostalCode);
+        editTextProvince = findViewById(R.id.editTextProvince);
+        editTextAge = findViewById(R.id.editTextAge);
+//        editTextQualifications = findViewById(R.id.editTextQualifications);
+//        editTextAchievements = findViewById(R.id.editTextAchievements);
         checkBoxIsAvailable = findViewById(R.id.checkBoxIsAvailable);
         editTextYearsOfExperience = findViewById(R.id.editTextYearsOfExperience);
         languageCheckboxGroup = findViewById(R.id.languageCheckboxGroup);
         imageViewProfilePhoto = findViewById(R.id.imageViewProfilePhoto);
-
+        chipGroup = findViewById(R.id.languageChipGroup);
+        selectLanguagesButton = findViewById(R.id.selectLanguagesButton);
         btnStartRegistration = findViewById(R.id.btnStartRegistration);
         btnNext1 = findViewById(R.id.btnNext1);
         btnNext2 = findViewById(R.id.btnNext2);
@@ -110,51 +203,82 @@ public class RegisterAsTutor extends BaseActivity {
         // ViewFlipper navigation
         btnNext1.setOnClickListener(v -> {
             String bio = editTextBio.getText().toString().trim();
-            String qualification = editTextQualifications.getText().toString().trim();
-            String achievement = editTextAchievements.getText().toString().trim();
+            String highestAchievement = editTextHighestAchievement.getText().toString().trim();
+            String street = editTextStreet.getText().toString().trim();
+            String city = editTextCity.getText().toString().trim();
+            String province = editTextProvince.getText().toString().trim();
+            String postalCode = editTextPostalCode.getText().toString().trim();
+            String age = editTextAge.getText().toString().trim();
 
-            if(qualification.length() == 0) {
-                editTextQualifications.setError("Qualification field empty");
-                editTextQualifications.requestFocus();
-            } else if (achievement.length() == 0){
-                editTextAchievements.setError("Achievement field empty");
-                editTextAchievements.requestFocus();
+
+            if (highestAchievement.length() == 0){
+                editTextHighestAchievement.setError("Achievement field empty");
+                editTextHighestAchievement.requestFocus();
             }
             else if (bio.length() < 40) {
                 editTextBio.setError("Bio must be at least 40 characters");
                 editTextBio.requestFocus();
+            }else if (age.length() == 0) {
+                editTextAge.setError("Age is required");
+                editTextAge.requestFocus();
+            } else if (street.length() == 0 || city.length() == 0 || province.length() == 0 || postalCode.length() == 0) {
+                Toast.makeText(this, "Address is not complete", Toast.LENGTH_SHORT).show();
             } else {
                 viewFlipper.showNext();
             }
         });
 
+
+
+        selectLanguagesButton.setOnClickListener(v -> {
+            try {
+                showLanguageMultiSelectDialog();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "f-" + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+//        btnNext2.setOnClickListener(v -> {
+//            int childCount = languageCheckboxGroup.getChildCount();
+//            boolean languageSelected = false;
+//            String yearsOfexperience = editTextYearsOfExperience.getText().toString().trim();
+//
+//
+//            for (int i = 0; i < childCount; i++) {
+//                View child = languageCheckboxGroup.getChildAt(i);
+//                if (child instanceof CheckBox) {
+//                    CheckBox checkBox = (CheckBox) child;
+//                    if (checkBox.isChecked()) {
+//                        languageSelected = true;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            if (selectedLanguageIds.isEmpty()) {
+//                Toast.makeText(this, "Please select at least one language", Toast.LENGTH_SHORT).show();
+//            } else if (editTextYearsOfExperience.getText().toString().trim().isEmpty()) {
+//                editTextYearsOfExperience.setError("Years of Experience field empty");
+//                editTextYearsOfExperience.requestFocus();
+//            }else {
+//                viewFlipper.showNext();
+//            }
+//        });
+
         btnNext2.setOnClickListener(v -> {
-            int childCount = languageCheckboxGroup.getChildCount();
-            boolean languageSelected = false;
-            String yearsOfexperience = editTextYearsOfExperience.getText().toString().trim();
+            String yearsOfExperience = editTextYearsOfExperience.getText().toString().trim();
 
-
-            for (int i = 0; i < childCount; i++) {
-                View child = languageCheckboxGroup.getChildAt(i);
-                if (child instanceof CheckBox) {
-                    CheckBox checkBox = (CheckBox) child;
-                    if (checkBox.isChecked()) {
-                        languageSelected = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!languageSelected) {
+            if (selectedLanguageIds.isEmpty()) {
                 Toast.makeText(this, "Please select at least one language", Toast.LENGTH_SHORT).show();
-            }
-            else if(yearsOfexperience.length() == 0){
+            } else if (yearsOfExperience.isEmpty()) {
                 editTextYearsOfExperience.setError("Years of Experience field empty");
                 editTextYearsOfExperience.requestFocus();
-            }else {
+            } else {
                 viewFlipper.showNext();
             }
         });
+
 
         btnStartRegistration.setOnClickListener(v -> viewFlipper.showNext());
         btnBack1.setOnClickListener(v -> viewFlipper.showPrevious());
@@ -171,9 +295,21 @@ public class RegisterAsTutor extends BaseActivity {
         btnSubmit.setOnClickListener(v -> {
             // 1. Collect form values
             String bio = editTextBio.getText().toString().trim();
-            String qualifications = editTextQualifications.getText().toString().trim();
-            String achievements = editTextAchievements.getText().toString().trim();
+            String highestAchievement = editTextHighestAchievement.getText().toString().trim();
+            String street = editTextStreet.getText().toString().trim();
+            String city = editTextCity.getText().toString().trim();
+            String province = editTextProvince.getText().toString().trim();
+            String postalCode = editTextPostalCode.getText().toString().trim();
             boolean isAvailable = checkBoxIsAvailable.isChecked();
+
+            int age = 0;
+            try {
+                age = Integer.parseInt(editTextAge.getText().toString().trim());
+            } catch (NumberFormatException e) {
+                // Handle invalid number input (e.g. show error)
+                Toast.makeText(this, "Please enter a valid age", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             int yearsOfExperience = 0;
             try {
@@ -183,7 +319,8 @@ public class RegisterAsTutor extends BaseActivity {
                 return;
             }
 
-            List<Integer> selectedLanguageIds = new ArrayList<>();
+
+
             for (int i = 0; i < languageCheckboxGroup.getChildCount(); i++) {
                 View child = languageCheckboxGroup.getChildAt(i);
                 if (child instanceof CheckBox) {
@@ -203,23 +340,27 @@ public class RegisterAsTutor extends BaseActivity {
 //                }
 //            }
 
-            String profilePhotoBase64 = null;
+            String profilePhotoPath = null;
             if (selectedImageBitmap != null) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 selectedImageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
                 byte[] imageBytes = stream.toByteArray();
-                profilePhotoBase64 = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+                profilePhotoPath = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
             }
 
             // 2. Build request object
             RegisterTutorRequest request = new RegisterTutorRequest(
                     bio,
-                    qualifications,
-                    achievements,
+                    highestAchievement,
+                    street,
+                    city,
+                    province,
+                    age,
+                    postalCode,
                     isAvailable,
                     yearsOfExperience,
                     selectedLanguageIds,
-                    profilePhotoBase64
+                    profilePhotoPath
             );
 
 
@@ -241,16 +382,19 @@ public class RegisterAsTutor extends BaseActivity {
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-//                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//                    String jsonRequest = gson.toJson(request);
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    String jsonRequest = gson.toJson(request);
 //                    Log.d("TutorRequest", jsonRequest);
 //
 //                    Log.d("Check", "Reached here");
 
                     if (response.isSuccessful()) {
+                        Log.d("response success", response.toString());
                         Toast.makeText(RegisterAsTutor.this, "Tutorship created!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterAsTutor.this, SplashActivity.class));
                         finish();
                     } else {
+                        Log.d("response failure", response.toString());
                         Toast.makeText(RegisterAsTutor.this, "Error: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 }
