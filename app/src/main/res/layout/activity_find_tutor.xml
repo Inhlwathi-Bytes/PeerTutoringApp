@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".FindTutorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_color"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@drawable/ic_menu"
+            app:title="Find Tutor"
+            app:titleTextColor="@color/white" />
+
+        <!-- Search and Sort -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:queryHint="Search"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort"
+                android:drawableStart="@drawable/ic_sort"
+                android:drawablePadding="4dp"
+                style="@style/Widget.AppCompat.Button.Borderless"/>
+        </LinearLayout>
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTutors"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu"
+        app:itemTextColor="@color/nav_menu_item"
+        app:itemIconTint="@color/nav_menu_item"/>
+</androidx.drawerlayout.widget.DrawerLayout>

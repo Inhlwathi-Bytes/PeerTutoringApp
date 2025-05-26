@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Subject and Rating -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/textSubject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mathematics"
+                android:textColor="@color/primary_color"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4.0"
+                android:stepSize="0.5"/>
+
+            <TextView
+                android:id="@+id/textRatingCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="(0 ratings)"
+                android:textSize="12sp"
+                android:textColor="@color/dark_gray"/>
+        </LinearLayout>
+
+        <!-- Tutor Name -->
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="John Doe"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"/>
+
+        <!-- Category -->
+        <TextView
+            android:id="@+id/textCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Science"
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"/>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Experienced tutor in physics and chemistry with 5 years of teaching experience."
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp"/>
+
+        <!-- Contact Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_email"
+                app:tint="@color/secondary_color"/>
+
+            <TextView
+                android:id="@+id/textEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tutor@example.com"
+                android:textColor="@color/secondary_color"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <!-- Request Button -->
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/primary_color"
+            android:text="Request Tutor"
+            android:textColor="@color/white"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".PaymentActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Toolbar (consistent with other activities) -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_color"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:navigationIcon="@drawable/ic_menu"
+            app:title="Make Payment"
+            app:titleTextColor="@color/white"/>
+
+        <!-- Content with padding -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Outstanding Balance -->
+            <TextView
+                android:id="@+id/textViewBalanceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outstanding Balance:"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/textViewBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="R0.00"
+                android:textSize="24sp"
+                android:textColor="@color/primary_color"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Payment Amount -->
+            <TextView
+                android:id="@+id/textViewAmountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Amount (R)"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editTextAmount"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:inputType="numberDecimal"
+                android:hint="Enter amount"
+                android:minHeight="48dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Payment Reference -->
+            <TextView
+                android:id="@+id/textViewReferenceLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Reference"
+                android:layout_marginBottom="4dp"/>
+
+            <EditText
+                android:id="@+id/editTextReference"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="Enter payment reference"
+                android:minHeight="48dp"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Pay Button with blue background -->
+            <Button
+                android:id="@+id/buttonPay"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Make Payment"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@color/white"/>
+
+            <!-- Payment History -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment History"
+                android:textSize="18sp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPayments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Floating Back Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_back"
+        android:contentDescription="Back"
+        app:backgroundTint="@color/primary_color"
+        app:tint="@color/white"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu"
+        app:itemTextColor="@color/nav_menu_item"
+        app:itemIconTint="@color/nav_menu_item"/>
+</androidx.drawerlayout.widget.DrawerLayout>

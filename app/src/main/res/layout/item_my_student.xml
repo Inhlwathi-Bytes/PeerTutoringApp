@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Student Name -->
+        <TextView
+            android:id="@+id/textStudentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+
+        <!-- Student Number -->
+        <TextView
+            android:id="@+id/textStudentNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Number"
+            android:layout_marginTop="4dp" />
+
+        <!-- Institution -->
+        <TextView
+            android:id="@+id/textStudentInstitution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Institution"
+            android:layout_marginTop="4dp" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/textStudentEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_marginTop="4dp" />
+
+        <!-- Phone -->
+        <TextView
+            android:id="@+id/textStudentPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

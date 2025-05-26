@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Tutor Name -->
+            <TextView
+                android:id="@+id/textTutorName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tutor Name"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
+
+            <!-- Rate Text -->
+            <TextView
+                android:id="@+id/textRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate"
+                android:textColor="@color/primary_color"
+                android:textSize="14sp"
+                android:padding="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"/>
+        </LinearLayout>
+
+        <!-- Tutor Subject -->
+        <TextView
+            android:id="@+id/textTutorSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subject"
+            android:layout_marginTop="4dp" />
+
+        <!-- Tutor Email -->
+        <TextView
+            android:id="@+id/textTutorEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tutor@example.com"
+            android:layout_marginTop="4dp" />
+
+        <!-- Request Status -->
+        <TextView
+            android:id="@+id/textRequestStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: pending"
+            android:layout_marginTop="8dp" />
+
+        <!-- Request Date -->
+        <TextView
+            android:id="@+id/textRequestDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Requested on: 2023-01-01"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
